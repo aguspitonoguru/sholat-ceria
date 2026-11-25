@@ -6,7 +6,7 @@ import { Logo } from '@/components/Navbar';
 export const metadata: Metadata = { title: 'Tentang – Sholat Ceria' };
 
 const AUTHOR = [
-  ['Nama', 'Agus Pitono, S.Pd.Gr'],
+  ['Nama', 'Agus Pitono, S.Pd.I.Gr'],
   ['Nama Panggilan', 'Agus'],
   ['Instansi Pendidikan', 'SD Negeri 03 Teras Terunjam'],
   ['Guru Mata Pelajaran', 'Pendidikan Agama Islam'],
