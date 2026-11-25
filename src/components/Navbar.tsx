@@ -1,6 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
-import { BookOpen, Gamepad2, Home, Star, Volume2, VolumeX } from 'lucide-react';
+import { BookOpen, Gamepad2, Home, Info, Star, Volume2, VolumeX } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useApp } from '@/lib/store';
@@ -24,6 +24,7 @@ const LINKS = [
   { href: '/', label: 'Beranda', icon: Home },
   { href: '/belajar', label: 'Belajar Sholat', icon: BookOpen },
   { href: '/kuis', label: 'Kuis Seru', icon: Gamepad2 },
+  { href: '/tentang', label: 'Tentang', icon: Info },
 ];
 
 export default function Navbar() {

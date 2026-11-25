@@ -1,10 +1,9 @@
 'use client';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Play, School } from 'lucide-react';
+import { Play, School, Trophy } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import AnimatedSholatCharacter, { type CharacterName } from '@/components/AnimatedSholatCharacter';
-import CoverflowSlider from '@/components/CoverflowSlider';
 import JoinClassModal from '@/components/JoinClassModal';
 import { useApp } from '@/lib/store';
 import { play, say } from '@/lib/sound';
@@ -14,10 +13,18 @@ const LINES: Record<CharacterName, string[]> = {
   aisyah: ['Assalamu’alaikum! Aku Aisyah. Senang bertemu kamu!', 'Sebelum sholat, jangan lupa berwudhu ya!', 'Ayo coba Kuis Seru setelah belajar!', 'Sholat tepat waktu itu keren!'],
 };
 
+const MENU = [
+  { href: '/belajar/wudhu', label: 'Wudhu', emoji: '💧', color: 'from-sky-400 to-sky-600' },
+  { href: '/belajar', label: 'Gerakan Sholat', emoji: '🕌', color: 'from-emerald-400 to-emerald-600' },
+  { href: '/belajar/panduan', label: 'Panduan', emoji: '📖', color: 'from-violet-400 to-violet-600' },
+  { href: '/kuis', label: 'Kuis Seru', emoji: '🎮', color: 'from-amber-400 to-orange-500' },
+];
+
 function Hero({ who, onTap, jump }: { who: CharacterName; onTap: () => void; jump: number }) {
   return (
     <motion.button onClick={onTap} whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} aria-label={`Sapa ${who === 'ali' ? 'Ali' : 'Aisyah'}`}
-      className="relative h-full min-w-0 max-w-[320px] flex-1 rounded-3xl">
+      // blend di pembungkus: transform hover/lompat mengisolasi blend video, latar putihnya jadi tampak kotak
+      className="relative h-full min-w-0 max-w-[320px] flex-1 rounded-3xl mix-blend-multiply">
       <AnimatedSholatCharacter posture="sapa" character={who} jumpKey={jump} loop className="h-full" />
     </motion.button>
   );
@@ -26,7 +33,8 @@ function Hero({ who, onTap, jump }: { who: CharacterName; onTap: () => void; jum
 export default function Home() {
   const app = useApp();
   const router = useRouter();
-  const [slide, setSlide] = useState(0);
+  const total = app.materials.length;
+  const done = app.materials.filter((m) => app.completed.includes(m.slug)).length;
   const [joinOpen, setJoinOpen] = useState(false);
   const [jump, setJump] = useState({ ali: 0, aisyah: 0 });
   const [line, setLine] = useState<{ who: CharacterName; i: number }>({ who: 'ali', i: 0 });
@@ -103,8 +111,29 @@ export default function Home() {
         </section>
       </div>
 
-      <div className="mx-auto h-[118px] w-full max-w-5xl shrink-0 sm:h-[150px]">
-        <CoverflowSlider items={app.materials} index={slide} onChange={setSlide} onSelect={(i) => router.push(`/belajar/${app.materials[i].slug}`)} character={app.character} completed={app.completed} />
+      <div className="mx-auto flex w-full max-w-5xl shrink-0 flex-col gap-2">
+        <div className="flex items-center gap-3 rounded-2xl bg-white/85 px-3 py-1.5 shadow-md backdrop-blur">
+          <Trophy className="h-6 w-6 shrink-0 text-amber-500" />
+          <div className="min-w-0 flex-1">
+            <div className="flex justify-between font-display text-sm font-semibold text-slate-600">
+              <span>Petualangan Sholatku</span><span>{done}/{total} gerakan</span>
+            </div>
+            <div className="mt-1 h-3 overflow-hidden rounded-full bg-slate-200">
+              <motion.div className="h-full rounded-full bg-gradient-to-r from-emerald-400 to-amber-400" initial={{ width: 0 }} animate={{ width: `${(done / total) * 100}%` }} transition={{ duration: 0.8 }} />
+            </div>
+          </div>
+          <span className="hidden text-2xl sm:block">{done === total ? '🏆' : done ? '🌱' : '🚀'}</span>
+        </div>
+        <div className="grid grid-cols-4 gap-2">
+          {MENU.map(({ href, label, emoji, color }, i) => (
+            <motion.button key={href} onClick={() => { play('pop'); router.push(href); }} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.08 * i }}
+              whileHover={{ y: -4, rotate: i % 2 ? 2 : -2 }} whileTap={{ scale: 0.92 }}
+              className={`flex flex-col items-center justify-center gap-0.5 rounded-3xl bg-gradient-to-br ${color} p-2 font-display font-bold text-white shadow-lg ring-2 ring-white sm:flex-row sm:gap-2`}>
+              <span className="text-3xl">{emoji}</span>
+              <span className="text-center text-xs leading-tight sm:text-base">{label}</span>
+            </motion.button>
+          ))}
+        </div>
       </div>
       <JoinClassModal open={joinOpen} onClose={() => setJoinOpen(false)} />
     </div>
