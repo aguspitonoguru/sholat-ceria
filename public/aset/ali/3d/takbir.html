@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ali Takbiratul Ihram 3D</title>
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
+<style>
+  body { margin: 0; padding: 16px; background: #fff; font-family: system-ui, sans-serif; color: #111; }
+  .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  figure { margin: 0; text-align: center; }
+  model-viewer { width: min(300px, 90vw); height: 420px; background: #fff; }
+  figcaption { font-weight: 800; letter-spacing: .02em; }
+  .free { width: min(640px, 100%); height: 520px; margin: 24px auto 0; display: block; background: #f4f7f5; border-radius: 16px; }
+</style>
+</head>
+<body>
+  <div class="row">
+    <figure><model-viewer src="takbir.glb" camera-orbit="0deg 82deg auto" field-of-view="18deg" shadow-intensity="1" interaction-prompt="none" alt="Ali tampak depan"></model-viewer><figcaption>TAMPAK DEPAN</figcaption></figure>
+    <figure><model-viewer src="takbir.glb" camera-orbit="90deg 82deg auto" field-of-view="18deg" shadow-intensity="1" interaction-prompt="none" alt="Ali tampak samping"></model-viewer><figcaption>TAMPAK SAMPING</figcaption></figure>
+    <figure><model-viewer src="takbir.glb" camera-orbit="180deg 82deg auto" field-of-view="18deg" shadow-intensity="1" interaction-prompt="none" alt="Ali tampak belakang"></model-viewer><figcaption>TAMPAK BELAKANG</figcaption></figure>
+  </div>
+  <model-viewer class="free" src="takbir.glb" camera-controls auto-rotate shadow-intensity="1" alt="Ali Takbiratul Ihram, bisa diputar"></model-viewer>
+</body>
+</html>

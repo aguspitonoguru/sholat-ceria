@@ -1,0 +1,3 @@
+Taruh file mp3 bacaan (64–96 kbps) di folder ali dengan nama sesuai gerakan:
+niat.mp3 takbir.mp3 sedekap.mp3 rukuk.mp3 itidal.mp3 sujud.mp3 duduk.mp3 salam.mp3
+File yang sama dipakai untuk Ali dan Aisyah. Suara khusus per tokoh bisa diatur guru di Mode Guru (rekam atau URL).
