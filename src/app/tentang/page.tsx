@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { UserRound } from 'lucide-react';
+import Image from 'next/image';
 import { Logo } from '@/components/Navbar';
 
 export const metadata: Metadata = { title: 'Tentang – Sholat Ceria' };
@@ -9,6 +10,13 @@ const AUTHOR = [
   ['Nama Panggilan', 'Agus'],
   ['Instansi Pendidikan', 'SD Negeri 03 Teras Terunjam'],
   ['Guru Mata Pelajaran', 'Pendidikan Agama Islam'],
+] as const;
+
+const LOGOS = [
+  ['/logo/kemendikdasmen.svg', 'Kemendikdasmen', 400, 400],
+  ['/logo/ramah-anak.png', 'Kemendikdasmen Ramah', 1250, 625],
+  ['/logo/pendidikan-bermutu.png', 'Pendidikan Bermutu untuk Semua', 671, 298],
+  ['/logo/erunex.png', 'Erunex WooWEdu Community', 884, 348],
 ] as const;
 
 export default function TentangPage() {
@@ -36,6 +44,15 @@ export default function TentangPage() {
             </div>
           ))}
         </dl>
+      </section>
+
+      <section className="rounded-3xl bg-white p-4 shadow-xl">
+        <h2 className="mb-3 text-center font-display text-lg font-bold text-emerald-700">Didukung Oleh</h2>
+        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+          {LOGOS.map(([src, alt, w, h]) => (
+            <Image key={src} src={src} alt={alt} width={w} height={h} className="h-14 w-auto object-contain sm:h-16" />
+          ))}
+        </div>
       </section>
     </div>
   );
